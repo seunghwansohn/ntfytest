@@ -7,7 +7,8 @@ set -euo pipefail
 # Generate encrypted topic name from passphrase and salt
 get_encrypted_topic() {
     local topic_name="${1:-}"
-    echo -n "${topic_name}${TOPIC_PASSPHRASE}${SALT}" | openssl dgst -sha256 2>/dev/null | awk '{print $2}'
+    # Use -r or cut to get only the hash regardless of format
+    echo -n "${topic_name}${TOPIC_PASSPHRASE}${SALT}" | openssl dgst -sha256 2>/dev/null | sed 's/.*= //' | sed 's/^.* //'
 }
 
 # Encrypt a message using AES-256-CBC
