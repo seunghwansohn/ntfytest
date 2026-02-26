@@ -23,6 +23,7 @@ jobs:
 
       - name: Send Notification
         env:
+          DEBUG: true
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           REPO_NAME: ${{ github.event.repository.name }}
           EVENT_ACTION: ${{ github.event.action }}
